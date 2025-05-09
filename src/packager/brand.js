@@ -30,23 +30,23 @@ If this is set to an empty string, the link is removed.
 */
 
 module.exports = {
-  APP_NAME: 'TurboWarp Packager',
-  WEBSITE: 'https://packager.turbowarp.org/',
+  APP_NAME: 'MistWarp Packager',
+  WEBSITE: 'https://packager.warp.mistium.com/',
   COPYRIGHT_NOTICE: `Copyright (C) 2021-2024 Thomas Weber
 
 The Source Code Form of this program is available under the terms of the
 Mozilla Public License, v. 2.0. You can obtain a copy of the license at
 https://www.mozilla.org/en-US/MPL/2.0/.`,
-  ACCENT_COLOR: '#ff4c4c',
-  SOURCE_CODE: 'https://github.com/TurboWarp/packager',
+  ACCENT_COLOR: '#d499e6',
+  SOURCE_CODE: 'https://github.com/MistWarp/packager',
   FEEDBACK_PRIMARY: {
-    name: 'Scratch',
-    link: 'https://scratch.mit.edu/users/GarboMuffin/#comments'
+    name: 'Discord',
+    link: 'https://dcs.gg/originOS'
   },
   FEEDBACK_SECONDARY: {
     name: 'GitHub',
-    link: 'https://github.com/TurboWarp/packager/issues'
+    link: 'https://github.com/MistWarp/packager/issues'
   },
-  DONATE: 'https://github.com/sponsors/GarboMuffin',
+  DONATE: 'https://patreon.com/mistium',
   PRIVACY_POLICY: 'https://turbowarp.org/privacy.html',
 };
