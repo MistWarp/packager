@@ -18,7 +18,7 @@ Start in development mode:
 npm start
 ```
 
-Then visit http://localhost:8947. Manually refresh to see changes.
+Then visit <http://localhost:8947>. Manually refresh to see changes.
 
 Packaged projects generated while in development mode should not be distributed. Instead, you should run a production build to significantly reduce file size of both the website and the packager.
 
