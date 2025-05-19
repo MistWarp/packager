@@ -24,7 +24,7 @@ We intend to release an updated version of the npm module to npm with every upda
 
 All features should work, with the following exceptions:
 
- - macOS apps in the NW.js or WKWebView environments do not support custom icons and must always use the default icon
+- macOS apps in the NW.js or WKWebView environments do not support custom icons and must always use the default icon
 
 ### Browser support
 
