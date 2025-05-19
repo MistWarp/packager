@@ -15,7 +15,8 @@
     "build-node-prod": "cross-env NODE_ENV=production npm run build-node",
     "test": "jest",
     "prepublishOnly": "npm run test && npm run build-node-prod && node src/build/nodejs/update-readme.js node",
-    "postpublish": "node src/build/nodejs/update-readme.js restore"
+    "postpublish": "node src/build/nodejs/update-readme.js restore",
+    "deploy": "NODE_ENV=production npm run build-prod && gh-pages -d dist"
   },
   "author": "GarboMuffin",
   "homepage": "https://github.com/TurboWarp/packager#readme",
@@ -38,6 +39,7 @@
     "@turbowarp/jszip": "^3.11.0",
     "@turbowarp/sbdl": "^4.0.1",
     "cross-fetch": "^4.0.0",
+    "gh-pages": "^6.3.0",
     "sha.js": "^2.4.11"
   },
   "devDependencies": {
