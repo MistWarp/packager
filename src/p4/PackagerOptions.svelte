@@ -35,6 +35,7 @@
 
   const defaultOptions = Packager.DEFAULT_OPTIONS();
   defaultOptions.projectId = projectData.projectId || `p4-${projectData.uniqueId}`;
+  defaultOptions.custom.csp = defaultOptions.custom.csp || "default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: blob:";
   for (const variable of cloudVariables) {
     defaultOptions.cloudVariables.custom[variable] = 'ws';
   }
@@ -175,6 +176,7 @@
   const pack = async () => {
     resetResult();
     const task = new Task();
+    $options.csp = $options.custom.csp;
     result = await task.do(runPackager(task, deepClone($options)));
     task.done();
     downloadURL(result.filename, result.url);
@@ -185,6 +187,7 @@
     previewer = new Preview();
     const task = new Task();
     const optionsClone = deepClone($options);
+    optionsClone.csp = optionsClone.custom.csp;
     optionsClone.target = 'html';
     try {
       result = await task.do(runPackager(task, optionsClone));
@@ -760,6 +763,11 @@
       <label class="option">
         {$_('options.customJS')}
         <textarea bind:value={$options.custom.js}></textarea>
+      </label>
+
+      <label class="option">
+        {$_('options.customCSP')}
+        <input type="text" bind:value={$options.custom.csp}>
       </label>
 
       <label class="option">

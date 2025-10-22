@@ -443,6 +443,10 @@
       "string": "Custom JS (Don't change if you don't know what you're doing!)",
       "developer_comment": "Do not translate 'JS'"
     },
+    "customCSP": {
+      "string": "Custom CSP (This can make your project less secure!!)",
+      "developer_comment": "Do not translate 'CSP'"
+    },
     "environment": {
       "string": "Environment",
       "developer_comment": "Label to select which environment to package the project for"
