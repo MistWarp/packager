@@ -176,10 +176,17 @@
   const pack = async () => {
     resetResult();
     const task = new Task();
-    $options.csp = $options.custom.csp;
-    result = await task.do(runPackager(task, deepClone($options)));
+    const optionsClone = deepClone($options);
+    optionsClone.csp = optionsClone.custom.csp;
+    result = await task.do(runPackager(task, optionsClone));
     task.done();
-    downloadURL(result.filename, result.url);
+
+    // Some browsers (notably Safari) may block downloads triggered after an async operation
+    // because the original user gesture no longer counts as active.
+    // In that case, the download link in the Downloads section will still work.
+    if (!navigator.userActivation || navigator.userActivation.isActive) {
+      downloadURL(result.filename, result.url);
+    }
   };
 
   const preview = async () => {
@@ -1089,7 +1096,7 @@
     <div class="button">
       <Button on:click={pack} text={$_('options.package')} />
     </div>
-    <div clas="button">
+      <div class="button">
       <Button on:click={preview} secondary text={$_('options.preview')} />
     </div>
   </div>
