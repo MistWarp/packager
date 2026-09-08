@@ -102,6 +102,7 @@
     $options.bakeExtensions !== defaultOptions.bakeExtensions ||
     $options.custom.css !== '' ||
     $options.custom.js !== '' ||
+    $options.custom.csp !== defaultOptions.custom.csp ||
     $options.projectId !== defaultOptions.projectId ||
     $options.packagedRuntime !== defaultOptions.packagedRuntime ||
     $options.maxTextureDimension !== defaultOptions.maxTextureDimension
@@ -184,8 +185,10 @@
     // Some browsers (notably Safari) may block downloads triggered after an async operation
     // because the original user gesture no longer counts as active.
     // In that case, the download link in the Downloads section will still work.
-    if (!navigator.userActivation || navigator.userActivation.isActive) {
+    try {
       downloadURL(result.filename, result.url);
+    } catch (error) {
+      console.warn('Automatic download failed; use the download link.', error);
     }
   };
 

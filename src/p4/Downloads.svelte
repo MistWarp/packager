@@ -31,7 +31,7 @@
   
       const blobURL = URL.createObjectURL(zippedBlob);
       downloadURL(newFileName, blobURL);
-      URL.revokeObjectURL(blobURL);
+      setTimeout(() => URL.revokeObjectURL(blobURL), 4000);
     } catch (e) {
       console.error(e);
     }
