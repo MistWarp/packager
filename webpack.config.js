@@ -151,8 +151,9 @@ const makeScaffolding = ({full}) => ({
     ]
   },
   resolveLoader: {
-    // Replace worker-loader with our own modified version
-    modules: [path.resolve(__dirname, 'src', 'build', 'inline-worker-loader'), 'node_modules'],
+    // Replace worker-loader with our own modified version. Inline loaders in
+    // engine sources resolve against our node_modules, like their imports.
+    modules: [path.resolve(__dirname, 'src', 'build', 'inline-worker-loader'), ...engineModules],
   },
   plugins: [
     ...(buildId ? [new AddBuildIDToOutputPlugin(buildId)] : []),
