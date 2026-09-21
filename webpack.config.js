@@ -30,6 +30,21 @@ const getVersion = () => {
 };
 const version = getVersion();
 
+// webpack 4's parser predates nullish coalescing, which src/packager/packager.js
+// uses. Every config that pulls in src/ needs babel-loader, not just scaffolding.
+const makeJavascriptRule = () => ({
+  test: /\.jsx?$/,
+  loader: 'babel-loader',
+  include: [
+    path.resolve(__dirname, 'src'),
+    /node_modules[\\/]scratch-[^\\/]+[\\/]src/
+  ],
+  options: {
+    babelrc: false,
+    presets: ['@babel/preset-env']
+  }
+});
+
 const makeScaffolding = ({full}) => ({
   ...base,
   devtool: isProduction ? '' : 'source-map',
@@ -54,18 +69,7 @@ const makeScaffolding = ({full}) => ({
   },
   module: {
     rules: [
-      {
-        test: /\.jsx?$/,
-        loader: 'babel-loader',
-        include: [
-          path.resolve(__dirname, 'src'),
-          /node_modules[\\/]scratch-[^\\/]+[\\/]src/
-        ],
-        options: {
-          babelrc: false,
-          presets: ['@babel/preset-env']
-        }
-      },
+      makeJavascriptRule(),
       {
         test: /\.(svg|png)$/i,
         use: [{
@@ -154,6 +158,7 @@ const makeWebsite = () => ({
   },
   module: {
     rules: [
+      makeJavascriptRule(),
       {
         test: /\.png|\.svg$/i,
         use: isStandalone ? {
@@ -229,6 +234,7 @@ const makeNode = () => ({
   },
   module: {
     rules: [
+      makeJavascriptRule(),
       {
         test: /\.png|\.svg$/i,
         use: 'file-loader'
