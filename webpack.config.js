@@ -32,6 +32,23 @@ const version = getVersion();
 
 // webpack 4's parser predates nullish coalescing, which src/packager/packager.js
 // uses. Every config that pulls in src/ needs babel-loader, not just scaffolding.
+// rotur-sdk, pulled in by scratch-vm, ships class fields in both its ESM and
+// CommonJS builds, which webpack 4's parser cannot read. javascript/auto keeps
+// .mjs out of webpack's stricter ESM mode, where the CommonJS interop the rest
+// of the bundle relies on is unavailable. Matched by pattern rather than
+// resolved path so a hoisted or symlinked install still gets transpiled.
+const makeRoturSdkRule = () => ({
+  test: /\.m?js$/,
+  type: 'javascript/auto',
+  loader: 'babel-loader',
+  include: /[\\/]node_modules[\\/]rotur-sdk[\\/]/,
+  options: {
+    babelrc: false,
+    configFile: false,
+    presets: ['@babel/preset-env']
+  }
+});
+
 const makeJavascriptRule = () => ({
   test: /\.jsx?$/,
   loader: 'babel-loader',
@@ -70,6 +87,7 @@ const makeScaffolding = ({full}) => ({
   module: {
     rules: [
       makeJavascriptRule(),
+      makeRoturSdkRule(),
       {
         test: /\.(svg|png)$/i,
         use: [{
@@ -159,6 +177,7 @@ const makeWebsite = () => ({
   module: {
     rules: [
       makeJavascriptRule(),
+      makeRoturSdkRule(),
       {
         test: /\.png|\.svg$/i,
         use: isStandalone ? {
@@ -235,6 +254,7 @@ const makeNode = () => ({
   module: {
     rules: [
       makeJavascriptRule(),
+      makeRoturSdkRule(),
       {
         test: /\.png|\.svg$/i,
         use: 'file-loader'
