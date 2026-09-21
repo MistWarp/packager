@@ -1,5 +1,5 @@
-import {CannotAccessProjectError} from '../common/errors';
-import request from '../common/request';
+import {CannotAccessProjectError} from '@packager/common/errors';
+import request from '@packager/common/request';
 
 const getProjectMetadata = async (id) => {
   try {

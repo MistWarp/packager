@@ -1,8 +1,8 @@
-import Packager from '../packager';
-import {downloadProject} from '../download-project';
+import Packager from '@packager/packager/packager';
+import {downloadProject} from '@packager/packager/download-project';
 import NodeAdapter from './adapter';
 import Image from './image';
-import {setAdapter} from '../adapter';
+import {setAdapter} from '@packager/packager/adapter';
 
 setAdapter(new NodeAdapter());
 

@@ -3,7 +3,7 @@ import path from 'path';
 import {promisify} from 'util';
 import fetch from 'cross-fetch';
 import {name} from '../../../package.json';
-import defaultIcon from '../images/default-icon.png';
+import defaultIcon from '@packager/packager/images/default-icon.png';
 import Image from './image';
 
 const readFile = promisify(fs.readFile);

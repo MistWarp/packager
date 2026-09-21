@@ -14,11 +14,11 @@
   import {progress, currentTask, error} from './stores';
   import Preview from './preview';
   import deepClone from './deep-clone';
-  import Packager from '../packager/web/export';
+  import Packager from '@packager/packager/web/export';
   import Task from './task';
   import downloadURL from './download-url';
   import {recursivelySerializeBlobs, recursivelyDeserializeBlobs} from './blob-serializer';
-  import {readAsText} from '../common/readers';
+  import {readAsText} from '@packager/common/readers';
   import merge from './merge';
   import DropArea from './DropArea.svelte';
   import {APP_NAME} from '../packager/brand';

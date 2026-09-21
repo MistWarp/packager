@@ -2,19 +2,23 @@ const fs = require('fs');
 const crypto = require('crypto');
 const glob = require('glob');
 const path = require('path');
+const engine = require('./engine-path');
 
 const hash = crypto.createHash('sha256');
 
-const getAllFiles = (g) => glob.sync(g, {
-  cwd: root
+const getAllFiles = (g, cwd = root) => glob.sync(g, {
+  cwd,
+  absolute: true
 });
 
 const root = path.join(__dirname, '..', '..');
 const files = [
   __filename,
-  ...getAllFiles('./src/scaffolding/**/*'),
-  ...getAllFiles('./src/addons/**/*'),
-  ...getAllFiles('./src/common/**/*'),
+  // The engine is scratch-gui's; hash it from there so a change over here still
+  // invalidates every packaged project's cached runtime.
+  ...getAllFiles('./{scaffolding,addons,common,packager}/**/*', engine),
+  path.join(root, 'src', 'build', 'packager-runtime.js'),
+  path.join(root, 'src', 'packager', 'brand.js'),
   ...getAllFiles('./node_modules/scratch-vm/src/**/*'),
   ...getAllFiles('./node_modules/scratch-render/src/**/*'),
   path.join(root, 'webpack.config.js'),

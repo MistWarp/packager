@@ -1,4 +1,4 @@
-import encodeBigString from "../../src/packager/encode-big-string";
+import encodeBigString from "@packager/packager/encode-big-string";
 
 test('simple behavior', () => {
   expect(encodeBigString``).toEqual(new Uint8Array([]));

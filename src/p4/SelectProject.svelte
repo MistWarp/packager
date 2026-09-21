@@ -8,9 +8,9 @@
   import ImportingProject from './ImportProject.svelte';
   import writablePersistentStore from './persistent-store';
   import {progress, currentTask} from './stores';
-  import {UserError} from '../common/errors';
+  import {UserError} from '@packager/common/errors';
   import getProjectMetadata from './get-project-metadata';
-  import loadProject from '../packager/load-project';
+  import loadProject from '@packager/packager/load-project';
   import {extractProjectId, isValidURL, getTitleFromURL} from './url-utils';
   import Task from './task';
   import importExternalProject from './import-external-project';

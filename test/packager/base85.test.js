@@ -1,4 +1,4 @@
-import {encode, decode} from '../../src/packager/base85';
+import {encode, decode} from '@packager/packager/base85';
 
 test('base85 encode and decode', () => {
   for (let i = 0; i < 10; i++) {

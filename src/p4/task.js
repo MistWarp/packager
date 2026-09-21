@@ -1,5 +1,5 @@
-import {EventTarget} from '../common/event-target';
-import {AbortError} from '../common/errors';
+import {EventTarget} from '@packager/common/event-target';
+import {AbortError} from '@packager/common/errors';
 import {progress, error, currentTask} from './stores';
 
 class Task extends EventTarget {

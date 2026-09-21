@@ -1,4 +1,4 @@
-import {darken, hexToRgb, rgbToHex} from '../../src/packager/colors';
+import {darken, hexToRgb, rgbToHex} from '@packager/packager/colors';
 
 test('hexToRgb', () => {
   expect(hexToRgb('#000000')).toStrictEqual({red: 0, green: 0, blue: 0});

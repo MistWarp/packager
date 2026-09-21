@@ -1,4 +1,4 @@
-import Packager from '../../src/packager/packager';
+import Packager from '@packager/packager/packager';
 
 test('getWindowTitleFromFileName', () => {
   expect(Packager.getWindowTitleFromFileName('Test123.sb')).toBe('Test123');

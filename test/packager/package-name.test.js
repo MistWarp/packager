@@ -1,4 +1,4 @@
-import Packager from '../../src/packager/packager';
+import Packager from '@packager/packager/packager';
 
 test('getDefaultPackageNameFromFileName', () => {
   expect(Packager.getDefaultPackageNameFromFileName('Appel v1.4.sb3')).toBe('appel-v');
