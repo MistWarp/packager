@@ -9,8 +9,17 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      # Where the "Checkout the packaging engine" step puts scratch-gui.
+      SCRATCH_GUI: scratch-gui
     steps:
     - uses: actions/checkout@v4
+    - name: Checkout the packaging engine
+      uses: actions/checkout@v4
+      with:
+        repository: MistWarp/scratch-gui
+        ref: develop
+        path: scratch-gui
     - name: Install Node.js
       uses: actions/setup-node@v4
       with:

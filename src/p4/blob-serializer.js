@@ -1,4 +1,4 @@
-import {readAsArrayBuffer} from '../common/readers';
+import {readAsArrayBuffer} from '@packager/common/readers';
 import {encode, decode} from './base64';
 
 const BLOB_IDENTIFIER = '__isBlob';

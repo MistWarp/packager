@@ -17,6 +17,9 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      # Where the "Checkout the packaging engine" step puts scratch-gui.
+      SCRATCH_GUI: scratch-gui
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -38,6 +41,12 @@ jobs:
         repository: MistWarp/scratch-audio
         ref: develop
         path: scratch-audio
+    - name: Checkout the packaging engine
+      uses: actions/checkout@v4
+      with:
+        repository: MistWarp/scratch-gui
+        ref: develop
+        path: scratch-gui
     - name: Setup GitHub Pages
       id: pages
       uses: actions/configure-pages@v4

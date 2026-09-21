@@ -1,4 +1,4 @@
-import {isValidListValue, isValidVariableValue} from "../../src/scaffolding/verify-value"
+import {isValidListValue, isValidVariableValue} from "@packager/scaffolding/verify-value"
 
 test('isValidVariableValue', () => {
   expect(isValidVariableValue('')).toBe(true);

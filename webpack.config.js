@@ -13,6 +13,18 @@ const base = {
   mode: isProduction ? 'production' : 'development'
 };
 const dist = path.resolve(__dirname, 'dist');
+
+const engine = require('./src/build/engine-path');
+// Engine sources sit outside this repository, so plain node resolution would read
+// scratch-gui's node_modules when it happens to have one. Ours always wins.
+const engineModules = [path.resolve(__dirname, 'node_modules'), 'node_modules'];
+// fake-indexeddb, an engine dependency, ships class fields, which webpack 4
+// cannot parse. rotur-sdk has the same problem and its own rule below.
+const engineUntranspiled = /node_modules[\\/]fake-indexeddb[\\/]/;
+const engineAliases = {
+  '@packager': engine,
+  'virtual:packager-runtime$': path.resolve(__dirname, 'src', 'build', 'packager-runtime.js')
+};
 const buildId = isProduction ? require('./src/build/generate-scaffolding-build-id') : null;
 
 const getVersion = () => {
@@ -54,6 +66,8 @@ const makeJavascriptRule = () => ({
   loader: 'babel-loader',
   include: [
     path.resolve(__dirname, 'src'),
+    engine,
+    engineUntranspiled,
     /node_modules[\\/]scratch-[^\\/]+[\\/]src/
   ],
   options: {
@@ -70,18 +84,20 @@ const makeScaffolding = ({full}) => ({
     path: dist
   },
   entry: full ? {
-    'scaffolding-full': './src/scaffolding/export.js',
-    addons: './src/addons/index.js'
+    'scaffolding-full': path.join(engine, 'scaffolding', 'export.js'),
+    addons: path.join(engine, 'addons', 'index.js')
   } : {
-    'scaffolding-min': './src/scaffolding/export.js'
+    'scaffolding-min': path.join(engine, 'scaffolding', 'export.js')
   },
   resolve: {
     symlinks: false,
+    modules: engineModules,
     alias: {
-      'text-encoding$': path.resolve(__dirname, 'src', 'scaffolding', 'text-encoding'),
-      'htmlparser2$': path.resolve(__dirname, 'src', 'scaffolding', 'htmlparser2'),
-      'scratch-translate-extension-languages$': path.resolve(__dirname, 'src', 'scaffolding', 'scratch-translate-extension-languages', 'languages.json'),
-      'scratch-parser$': path.resolve(__dirname, 'src', 'scaffolding', 'scratch-parser')
+      ...engineAliases,
+      'text-encoding$': path.join(engine, 'scaffolding', 'text-encoding'),
+      'htmlparser2$': path.join(engine, 'scaffolding', 'htmlparser2'),
+      'scratch-translate-extension-languages$': path.join(engine, 'scaffolding', 'scratch-translate-extension-languages', 'languages.json'),
+      'scratch-parser$': path.join(engine, 'scaffolding', 'scratch-parser')
     }
   },
   module: {
@@ -162,7 +178,10 @@ const makeWebsite = () => ({
     p4: './src/p4/index.js'
   },
   resolve: {
+    symlinks: false,
+    modules: engineModules,
     alias: {
+      ...engineAliases,
       svelte: path.resolve('node_modules', 'svelte')
     },
     extensions: ['.mjs', '.js', '.svelte'],
@@ -244,6 +263,11 @@ const makeNode = () => ({
   entry: {
     packager: './src/packager/node/export.js'
   },
+  resolve: {
+    symlinks: false,
+    modules: engineModules,
+    alias: engineAliases
+  },
   externals: {
     '@turbowarp/jszip': '@turbowarp/jszip',
     '@turbowarp/sbdl': '@turbowarp/sbdl',
@@ -258,7 +282,7 @@ const makeNode = () => ({
       {
         test: /\.png|\.svg$/i,
         use: 'file-loader'
-      }
+      },
     ]
   },
   plugins: [

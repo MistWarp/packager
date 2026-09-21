@@ -1,4 +1,4 @@
-import Cloud from '../../src/scaffolding/cloud';
+import Cloud from '@packager/scaffolding/cloud';
 
 const cloudManager = () => new Cloud.CloudManager({
   vm: {

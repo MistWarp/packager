@@ -1,7 +1,7 @@
 <script>
   import Section from './Section.svelte';
   import {_} from '../locales';
-  import {getJSZip} from '../packager/packager';
+  import {getJSZip} from '@packager/packager/packager';
   import downloadURL from './download-url';
   import {isChromeOS} from './environment';
 

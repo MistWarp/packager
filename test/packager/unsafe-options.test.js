@@ -1,4 +1,4 @@
-import Packager from "../../src/packager/packager";
+import Packager from "@packager/packager/packager";
 
 test('DEFAULT_OPTIONS', () => {
   expect(Packager.usesUnsafeOptions(Packager.DEFAULT_OPTIONS())).toBe(false);

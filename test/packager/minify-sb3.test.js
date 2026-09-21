@@ -1,4 +1,4 @@
-import optimizeSb3 from '../../src/packager/minify/sb3';
+import optimizeSb3 from '@packager/packager/minify/sb3';
 
 const clone = (obj) => JSON.parse(JSON.stringify(obj));
 

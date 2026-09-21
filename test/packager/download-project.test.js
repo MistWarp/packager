@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import {downloadProject} from '../../src/packager/download-project'
+import {downloadProject} from '@packager/packager/download-project'
 
 const readTestProject = (name) => {
   const buffer = fs.readFileSync(path.resolve(__dirname, 'projects', name));
